@@ -540,7 +540,7 @@ app.get("/restaurant/search", function(req,res) {
 
 
 //link to restaurantDisplayMap.ejs
-app.get("/restaurant/Display/Map", function(req,res) {
+app.get("/restaurant/display/map", function(req,res) {
 	console.log('Incoming request: %s', req.path);
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
@@ -557,7 +557,7 @@ app.get("/restaurant/Display/Map", function(req,res) {
 
 
 //handle RESTful service
-app.get('/api/restaurant/name/:keyword',function(req,res){
+app.get('/api/restaurant/read/name/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
@@ -581,7 +581,7 @@ app.get('/api/restaurant/name/:keyword',function(req,res){
 });
 
 
-app.get('/api/restaurant/borough/:keyword',function(req,res){
+app.get('/api/restaurant/read/borough/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
@@ -605,7 +605,7 @@ app.get('/api/restaurant/borough/:keyword',function(req,res){
 });
 
 
-app.get('/api/restaurant/cuisine/:keyword',function(req,res){
+app.get('/api/restaurant/read/cuisine/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
@@ -627,7 +627,6 @@ app.get('/api/restaurant/cuisine/:keyword',function(req,res){
 		});
 	});
 });
-
 
 
 app.post("/api/restaurant", function (req, res) {
@@ -670,6 +669,7 @@ app.post("/api/restaurant", function (req, res) {
 	}
 })
 
+
 app.get("/testing/api", function (req, res) {
 	res.status(200)
 	res.send(`
@@ -701,6 +701,7 @@ app.get("/testing/api", function (req, res) {
 		</script>
 	`)
 })
+
 
 /*
 app.post('/api/restaurant',function(req,res){
@@ -756,6 +757,7 @@ app.post('/api/restaurant',function(req,res){
 	}
 });
 */
+
 
 //Check user is logged in
 function isUserLoggedIn(req) {
