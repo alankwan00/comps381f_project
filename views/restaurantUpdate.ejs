@@ -3,7 +3,7 @@
 <HTML>
   <body>
     <h1>Update Restaurant</h1>
-    <a href="/restaurant/display/details?restaurantID=<%= restaurants[0].restaurantID %>"><p>Go back to restaurant details</p></a>
+    <p><a href="/restaurant/display/details?restaurantID=<%= restaurants[0].restaurantID %>">Go back to restaurant details</a></p>
     <% if (restaurants[0].photo != ""){ %>
     <img src="data:<%= restaurants[0].photoMimetype %>;base64,<%= restaurants[0].photo %>" height='200'/>
     <% } else { %>
