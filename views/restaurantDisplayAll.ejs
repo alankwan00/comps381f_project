@@ -1,0 +1,36 @@
+<!--restaurantDeplayAll.ejs-->
+
+<HTML>
+  <body>
+    <h1>Display Restaurant</h1>
+    <p>Welcome <%= userID %>. [<a href="/user/logout">Logout</a>]</p>
+    <form action='/restaurant/search' method='get'>
+      <br/>
+      Search Restaurant :
+      <table>
+        <tr>
+      <td><label>Column: </label></td>
+      <td>
+        <select name="column">
+          <option value="name">Name</option>
+          <option value="borough">Borough</option>
+          <option value="cuisine">Cuisine</option>
+        </select>
+      </td>
+      </tr>
+      <tr>
+        <td><label>Keyword: </label></td>
+      <td><input type='text' name='keyword' required></td>
+      </tr>
+      </table>
+        <input type='submit' value='Search'>
+    </form>
+    <br/>
+    <a href="/restaurant/create"><p>Create new restaurant</p></a>
+    <ol>
+    <% for (var i = 0; i < restaurants.length; i++) { %>
+         <li><p><a href="/restaurant/display/details?restaurantID=<%= restaurants[i].restaurantID %>"><%= restaurants[i].name %></a></p></li>
+     <% } %>
+     </ol>
+  </body>
+</HTML>

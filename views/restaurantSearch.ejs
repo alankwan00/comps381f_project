@@ -1,0 +1,29 @@
+<!-- restaurantSearch.ejs -->
+
+<HTML>
+  <body>
+    <h1>Search Restaurant</h1>
+    <a href="/restaurant/display/all"><p>Go back to restaurant list</p></a>
+    <br/>
+      Search Restaurant :
+      <table>
+        <tr>
+      <td><label></label></td>
+      <td>
+        <br/>
+      </td>
+      </tr>
+      <tr>
+        <td><label>Keyword: </label></td>
+      <td>
+        <%= keyword %>
+      </td>
+      </tr>
+      </table>
+    <ol>
+    <% for (var i = 0; i < restaurants.length; i++) { %>
+         <li><p><a href="/restaurant/display/details?restaurantID=<%= restaurants[i].restaurantID %>"><%= restaurants[i].name %></a></p></li>
+     <% } %>
+     </ol>
+  </body>
+</HTML>

@@ -1,0 +1,28 @@
+<!--userCreate.ejs-->
+
+<HTML>
+  <body>
+      <h1>Create User Account</h1>
+      <a href="/user/login"><p>Go back to login page</p></a>
+      <p style="color:red"><%= info %></p>
+	<form action="/user/create" method="post">
+		<table>
+			<tr>
+				<td><label>UserID :</label></td>
+				<td><input name="userID" value="<%= userID %>" type="text" required></td>
+			</tr>
+			<tr>
+				<td><label>Password :</label></td>
+				<td><input name="password" type="password"></td>
+			</tr>
+			<tr>
+				<td><label>Re-type Password :</label></td>
+				<td><input name="reTypePassword" type="password"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Create"></td>
+			</tr>
+		</table>
+	</form> 
+</body>
+</HTML>
