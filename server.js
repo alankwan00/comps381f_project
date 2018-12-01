@@ -527,7 +527,7 @@ app.get("/restaurant/search", function(req,res) {
 		  	var column = req.query.column;
 		  	var keyword = req.query.keyword;
 			var criteria = {};
-			criteria[column] = { $in: [  new RegExp(keyword, "g") ] };
+			criteria[column] = { $in: [ new RegExp(keyword, "g") ] };
 			selectRestaurants(db,criteria, function(restaurants) {
 				db.close();
 				console.log('Disconnected MongoDB');
@@ -670,7 +670,7 @@ app.post("/api/restaurant", function (req, res) {
 })
 
 
-app.get("/testing/api", function (req, res) {
+app.get("/testing/apipost", function (req, res) {
 	res.status(200)
 	res.send(`
 		<textarea id="input"></textarea>
@@ -701,62 +701,6 @@ app.get("/testing/api", function (req, res) {
 		</script>
 	`)
 })
-
-
-/*
-app.post('/api/restaurant',function(req,res){
-    console.log('Incoming request: %s', req.path);
-	if (!isUserLoggedIn(req)){
-		res.redirect('/user/login');
-	} else {
-		var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-    	var filename = files.photo.path;
-      //console.log(JSON.stringify(files));
-      var mimetype = files.photo.type;
-      fs.readFile(filename, function(err,data) {
-        MongoClient.connect(mongourl,function(err,db) {
-          try {
-            assert.equal(err,null);
-          } catch (err) {
-            res.writeHead(500,{"Content-Type":"text/plain"});
-            res.end("MongoClient connect() failed!");
-          }
-          var new_r = {};
-          new_r['restaurantID'] = new Date().getTime().toString();
-	        new_r['name'] = fields.name;
-	          new_r['borough'] = fields.borough;
-	           new_r['cuisine'] = fields.cuisine;
-          new_r['photo'] = new Buffer(data).toString('base64');
-			       new_r['photoMimetype'] = mimetype;
-          var address = {};
-			address['street'] = fields.street;
-			address['building'] = fields.building;
-			address['zipcode'] = fields.zipcode;
-			address['coord'] = [fields.coord_lon, fields.coord_lat];
-			new_r['address'] = address;
-			new_r['grades'] = [];
-			new_r['owner'] = fields.owner;
-      insertRestaurants(db,new_r,function(result) {
-    db.close();
-    console.log('Disconnected MongoDB');
-    MongoClient.connect(mongourl, function(err, db) {
-      if (err) throw err;
-      console.log("Database connected!");
-      var criteria = {};
-      selectRestaurants(db,criteria,function(restaurants) {
-        db.close();
-        console.log('Disconnected MongoDB');
-        res.redirect("/restaurant/display/details?restaurantID=" + new_r['restaurantID']);
-      });
-    });
-  });
-        });
-      })
-    });
-	}
-});
-*/
 
 
 //Check user is logged in
