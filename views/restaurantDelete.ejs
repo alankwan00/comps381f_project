@@ -4,7 +4,7 @@
   <body>
     <h1>Delete Restaurant</h1>
     <p><a href="/restaurant/display/details?restaurantID=<%= restaurants[0].restaurantID %>">Go back to restaurant details</a></p>
-    <% if (restaurants[0].photo != null && restaurants[0].photoMimetype != null){ %>
+    <% if (restaurants[0].photo != ""){ %>
     <img src="data:<%= restaurants[0].photoMimetype %>;base64,<%= restaurants[0].photo %>" height='200'/>
     <% } else { %>
     <br/><p>No photo provided</p><br/>
@@ -46,16 +46,22 @@
         <td><label>- Zipcode :</label></td>
         <td><%= restaurants[0].address.zipcode %></td>
       </tr>
-      <tr>
+        <tr>
          <td></td>
         <td><label>- Coord: </label></td>
         <td>
           <%
-          if (restaurants[0].address.coord[0].length != 0 || restaurants[0].address.coord[1].length != 0){
+          if (restaurants[0].address.coord[0].length != "" || restaurants[0].address.coord[1].length != ""){
           %>
-          [<%= restaurants[0].address.coord[0] %> , <%= restaurants[0].address.coord[1] %>]
-          <a href="/restaurant/display/map?restaurantID=<%= restaurants[0].restaurantID %>&lat=<%= restaurants[0].address.coord[0] %>&lon=<%= restaurants[0].address.coord[1] %>" >Show Map</a>
+          [ <%= restaurants[0].address.coord[0] %> , <%= restaurants[0].address.coord[1] %> ]
           <% 
+          }
+          %>
+          <%
+          if (restaurants[0].address.coord[0].length != "" && restaurants[0].address.coord[1].length != ""){
+          %>
+          <a href="/restaurant/display/map?restaurantID=<%= restaurants[0].restaurantID %>&lat=<%= restaurants[0].address.coord[0] %>&lon=<%= restaurants[0].address.coord[1] %>" >Show Map</a>
+          <%
           }
           %>
         </td>

@@ -301,36 +301,34 @@ app.get("/restaurant/display/details", function(req,res) {
 //link to restaurantUpdate.ejs
 app.get("/restaurant/update", function(req,res) {
 	console.log('Incoming request: %s', req.path);
+	var restaurantID = req.query.restaurantID;
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
+	} else if (restaurantID == null){
+		res.redirect('/restaurant/display/all');
 	} else {
-		var restaurantID = req.query.restaurantID;
-		if (restaurantID == null){
-			res.redirect('/restaurant/display/all');
-		} else {
-			MongoClient.connect(mongourl, function(err, db) {
-				if (err) throw err;
-			  	console.log("Database connected!");
-				var criteria = {};
-				criteria['restaurantID'] = restaurantID;
-				selectRestaurants(db,criteria,function(restaurants) {
-					db.close();
-					console.log('Disconnected MongoDB');
-					if (JSON.stringify(restaurants) === "[]") {
-						res.redirect('/restaurant/display/all');
+		MongoClient.connect(mongourl, function(err, db) {
+			if (err) throw err;
+		  	console.log("Database connected!");
+			var criteria = {};
+			criteria['restaurantID'] = restaurantID;
+			selectRestaurants(db,criteria,function(restaurants) {
+				db.close();
+				console.log('Disconnected MongoDB');
+				if (JSON.stringify(restaurants) === "[]") {
+					res.redirect('/restaurant/display/all');
+				} else {
+					var userID = req.session.userID;
+					var owner = restaurants[0].owner;
+					if (userID == owner){
+						res.render("restaurantUpdate", {restaurants: restaurants});
+						console.log("-----\n");
 					} else {
-						var userID = req.session.userID;
-						var owner = restaurants[0].owner;
-						if (userID == owner){
-							res.render("restaurantUpdate", {restaurants: restaurants});
-							console.log("-----\n");
-						} else {
-							res.redirect('/restaurant/display/details/?restaurantID=' + restaurantID)
-						}
+						res.redirect('/restaurant/display/details/?restaurantID=' + restaurantID)
 					}
-				});
+				}
 			});
-		}
+		});
 	}
 });
 
@@ -394,30 +392,28 @@ app.post("/restaurant/update/submit", function(req,res) {
 //link to restaurantRate.ejs
 app.get("/restaurant/rate", function(req,res) {
 	console.log('Incoming request: %s', req.path);
+	var restaurantID = req.query.restaurantID;
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
+	} else if (restaurantID == null){
+		res.redirect('/restaurant/display/all');
 	} else {
-		var restaurantID = req.query.restaurantID;
-		if (restaurantID == null){
-			res.redirect('/restaurant/display/all');
-		} else {
-			MongoClient.connect(mongourl, function(err, db) {
-				if (err) throw err;
-			  	console.log("Database connected!");
-				var criteria = {};
-				criteria['restaurantID'] = restaurantID;
-				selectRestaurants(db,criteria,function(restaurants) {
-					db.close();
-					console.log('Disconnected MongoDB');
-					if (JSON.stringify(restaurants) === "[]") {
-						res.redirect('/restaurant/display/all');
-					} else {
-						res.render("restaurantRate", {restaurants: restaurants});
-						console.log("-----\n");
-					}
-				});
+		MongoClient.connect(mongourl, function(err, db) {
+			if (err) throw err;
+		  	console.log("Database connected!");
+			var criteria = {};
+			criteria['restaurantID'] = restaurantID;
+			selectRestaurants(db,criteria,function(restaurants) {
+				db.close();
+				console.log('Disconnected MongoDB');
+				if (JSON.stringify(restaurants) === "[]") {
+					res.redirect('/restaurant/display/all');
+				} else {
+					res.render("restaurantRate", {restaurants: restaurants});
+					console.log("-----\n");
+				}
 			});
-		}
+		});
 	}
 });
 
@@ -461,30 +457,28 @@ app.get("/restaurant/rate/submit", function(req,res) {
 //link to restaurantDelete.ejs
 app.get("/restaurant/delete", function(req,res) {
 	console.log('Incoming request: %s', req.path);
+	var restaurantID = req.query.restaurantID;
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
+	} else if (restaurantID == null){
+		res.redirect('/restaurant/display/all');
 	} else {
-		var restaurantID = req.query.restaurantID;
-		if (restaurantID == null){
-			res.redirect('/restaurant/display/all');
-		} else {
-			MongoClient.connect(mongourl, function(err, db) {
-				if (err) throw err;
-			  	console.log("Database connected!");
-				var criteria = {};
-				criteria['restaurantID'] = restaurantID;
-				selectRestaurants(db,criteria,function(restaurants) {
-					db.close();
-					console.log('Disconnected MongoDB');
-					if (JSON.stringify(restaurants) === "[]") {
-						res.redirect('/restaurant/display/all');
-					} else {
-						res.render("restaurantDelete", {restaurants: restaurants});
-						console.log("-----\n");
-					}
-				});
+		MongoClient.connect(mongourl, function(err, db) {
+			if (err) throw err;
+		  	console.log("Database connected!");
+			var criteria = {};
+			criteria['restaurantID'] = restaurantID;
+			selectRestaurants(db,criteria,function(restaurants) {
+				db.close();
+				console.log('Disconnected MongoDB');
+				if (JSON.stringify(restaurants) === "[]") {
+					res.redirect('/restaurant/display/all');
+				} else {
+					res.render("restaurantDelete", {restaurants: restaurants});
+					console.log("-----\n");
+				}
 			});
-		}
+		});
 	}
 });
 

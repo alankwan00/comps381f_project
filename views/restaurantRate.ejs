@@ -51,11 +51,17 @@
         <td><label>- Coord: </label></td>
         <td>
           <%
-          if (restaurants[0].address.coord[0].length != 0 || restaurants[0].address.coord[1].length != 0){
+          if (restaurants[0].address.coord[0].length != "" || restaurants[0].address.coord[1].length != ""){
           %>
-          [<%= restaurants[0].address.coord[0] %> , <%= restaurants[0].address.coord[1] %>]
-          <a href="/restaurant/display/map?restaurantID=<%= restaurants[0].restaurantID %>&lat=<%= restaurants[0].address.coord[0] %>&lon=<%= restaurants[0].address.coord[1] %>" >Show Map</a>
+          [ <%= restaurants[0].address.coord[0] %> , <%= restaurants[0].address.coord[1] %> ]
           <% 
+          }
+          %>
+          <%
+          if (restaurants[0].address.coord[0].length != "" && restaurants[0].address.coord[1].length != ""){
+          %>
+          <a href="/restaurant/display/map?restaurantID=<%= restaurants[0].restaurantID %>&lat=<%= restaurants[0].address.coord[0] %>&lon=<%= restaurants[0].address.coord[1] %>" >Show Map</a>
+          <%
           }
           %>
         </td>
