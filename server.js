@@ -199,6 +199,7 @@ app.get("/restaurant/create", function(req,res) {
 	console.log('Incoming request: %s', req.path);
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
+	} else {
 		var owner = req.session.userID;
 		res.render("restaurantCreate", {owner: owner});
 		console.log("-----\n");
