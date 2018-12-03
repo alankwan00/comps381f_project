@@ -186,12 +186,12 @@ app.get("/restaurant/display/all", function(req,res) {
 				db.close();
 				console.log('Disconnected MongoDB');
 				var userID = req.session.userID;
-				if (JSON.stringify(restaurants) === "[]") {
-					res.redirect('/restaurant/display/all');
-				} else {
+				//if (JSON.stringify(restaurants) === "[]") {
+				//	res.redirect('/restaurant/display/all');
+				//} else {
 					res.render("restaurantDisplayAll", {restaurants: restaurants, userID: userID});
 					console.log("-----\n");
-				}
+				//}
 			});
 		});
 	}
