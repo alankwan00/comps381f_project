@@ -186,12 +186,8 @@ app.get("/restaurant/display/all", function(req,res) {
 				db.close();
 				console.log('Disconnected MongoDB');
 				var userID = req.session.userID;
-				//if (JSON.stringify(restaurants) === "[]") {
-				//	res.redirect('/restaurant/display/all');
-				//} else {
-					res.render("restaurantDisplayAll", {restaurants: restaurants, userID: userID});
-					console.log("-----\n");
-				//}
+				res.render("restaurantDisplayAll", {restaurants: restaurants, userID: userID});
+				console.log("-----\n");
 			});
 		});
 	}
@@ -551,7 +547,7 @@ app.get("/restaurant/display/map", function(req,res) {
 
 
 //handle RESTful service
-app.get('/api/restaurant/read/name/:keyword',function(req,res){
+app.get('/api/restaurant/name/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
@@ -575,7 +571,7 @@ app.get('/api/restaurant/read/name/:keyword',function(req,res){
 });
 
 
-app.get('/api/restaurant/read/borough/:keyword',function(req,res){
+app.get('/api/restaurant/borough/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
@@ -599,7 +595,7 @@ app.get('/api/restaurant/read/borough/:keyword',function(req,res){
 });
 
 
-app.get('/api/restaurant/read/cuisine/:keyword',function(req,res){
+app.get('/api/restaurant/cuisine/:keyword',function(req,res){
 	console.log('Incoming request: %s', req.path);
     var keyword = req.params.keyword;
     //console.log(keyword);
