@@ -4,11 +4,17 @@
   <body>
     <h1>Display Restaurant</h1>
     <p><a href="/restaurant/display/all">Go back to restaurant list</a></p>
-    <% if (restaurants[0].photo != "" && typeof restaurants[0].photo != "undefined"){ %>
+    <% 
+    if (restaurants[0].photo != "" && typeof restaurants[0].photo != "undefined" &&  restaurants[0].photoMimetype.includes("image/")) { 
+      %>
     <img src="data:<%= restaurants[0].photoMimetype %>;base64,<%= restaurants[0].photo %>" height='200'/>
-    <% } else { %>
+    <% 
+    } else { 
+    %>
     <br/><p>No photo provided</p><br/>
-    <% } %>
+    <% 
+    } 
+    %>
     <table>
       <tr>
         <td><label>Restaurant ID :</label></td>
