@@ -1,0 +1,24 @@
+<!--userLogin.ejs-->
+
+<HTML>
+  <body>
+      <h1>Login User Account</h1>
+      <p><a href="/user/create">Create User Account</a></p>
+      <p style="color:red"><%= info %></p>
+	<form action="/user/login/submit" method="post">
+		<table>
+			<tr>
+				<td><label>UserID :</label></td>
+				<td><input name="userID" value="<%= userID %>" type="text" required></td>
+			</tr>
+			<tr>
+				<td><label>Password :</label></td>
+				<td><input name="password" type="password" required></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Login"></td>
+					</tr>
+		</table>
+	</form> 
+</body>
+</HTML>
