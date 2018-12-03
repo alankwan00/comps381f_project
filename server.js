@@ -199,7 +199,6 @@ app.get("/restaurant/create", function(req,res) {
 	console.log('Incoming request: %s', req.path);
 	if (!isUserLoggedIn(req)){
 		res.redirect('/user/login');
-	} else {
 		var owner = req.session.userID;
 		res.render("restaurantCreate", {owner: owner});
 		console.log("-----\n");
@@ -367,17 +366,24 @@ app.post("/restaurant/update/submit", function(req,res) {
 			new_r['address'] = address;
 			new_r['grades'] = [];
 			new_r['owner'] = fields.owner;
-    MongoClient.connect(mongourl, function(err, db) {
-      if (err) throw err;
-      console.log("Database connected!");
-      var criteria = {};
-      criteria['restaurantID'] = fields.restaurantID;
-      updateRestaurantSet(db,criteria, new_r,function(result) {
+			var userID = req.session.userID;
+			var owner = fields.owner;
+			if (userID == owner){
+				 MongoClient.connect(mongourl, function(err, db) {
+			      if (err) throw err;
+			      console.log("Database connected!");
+			      var criteria = {};
+			      criteria['restaurantID'] = fields.restaurantID;
+			      updateRestaurantSet(db,criteria, new_r,function(result) {
 					db.close();
 					console.log('Disconnected MongoDB');
 					res.redirect("restaurant/display/details?restaurantID=" + fields.restaurantID);
 				});
     		});
+				console.log("-----\n");
+			} else {
+				res.redirect('/restaurant/display/details/?restaurantID=' + restaurantID)
+			}
         });
       })
     });
