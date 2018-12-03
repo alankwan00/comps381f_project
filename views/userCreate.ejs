@@ -13,6 +13,33 @@
 			</tr>
 			<tr>
 				<td><label>Password :</label></td>
+				<td><input name="password" type="password"></td>
+			</tr>
+			<tr>
+				<td><label>Re-type Password :</label></td>
+				<td><input name="reTypePassword" type="password"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Create"></td>
+			</tr>
+		</table>
+	</form> 
+</body>
+</HTML><!--userCreate.ejs-->
+
+<HTML>
+  <body>
+      <h1>Create User Account</h1>
+      <p><a href="/user/login">Go back to login page</a></p>
+      <p style="color:red"><%= info %></p>
+	<form action="/user/create" method="post">
+		<table>
+			<tr>
+				<td><label>UserID :</label></td>
+				<td><input name="userID" value="<%= userID %>" type="text" required></td>
+			</tr>
+			<tr>
+				<td><label>Password :</label></td>
 				<td><input name="password" type="password" required></td>
 			</tr>
 			<tr>
