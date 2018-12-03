@@ -477,8 +477,14 @@ app.get("/restaurant/delete", function(req,res) {
 				if (JSON.stringify(restaurants) === "[]") {
 					res.redirect('/restaurant/display/all');
 				} else {
-					res.render("restaurantDelete", {restaurants: restaurants});
-					console.log("-----\n");
+					var userID = req.session.userID;
+					var owner = restaurants[0].owner;
+					if (userID == owner){
+						res.render("restaurantDelete", {restaurants: restaurants});
+						console.log("-----\n");
+					} else {
+						res.redirect("restaurant/display/details?restaurantID=" + req.query.restaurantID);
+					}
 				}
 			});
 		});
